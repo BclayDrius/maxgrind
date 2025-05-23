@@ -44,6 +44,10 @@ header {
     color: var(--text-color) !important;
     background-color: var(--primary-color) !important;
 }
+.nav-item{
+    font-size: 18px;
+    margin: 0 0.5rem;
+}
 .navbar img {
     height: 1.5rem;
     margin-left: 1rem;
@@ -74,6 +78,11 @@ main {
     border-radius: 4px;
     box-shadow: 0 4px 16px rgba(0,0,0,1);
 }
+.hero.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
 .hero img{
     max-height: 7em;
     padding: 0 1rem 0 1rem;
@@ -103,6 +112,12 @@ main {
     background-color: var(--primary-color);
     border-radius: 4px;
     box-shadow: 0 4px 16px rgba(0,0,0,1);
+    transition: width 0.4s, height 0.4s, margin-top 0.4s;
+}
+.cards-grid-container.expanded {
+    width: 95vw;
+    height: 90vh;
+    margin-top: -6vh;
 }
 .card-grid-unit{
     display: flex;
@@ -161,51 +176,115 @@ main {
     height: 90%;
     box-shadow: 0 4px 30px rgb(97, 94, 94);
 }
+/* Tarjetas tipo info-section */
+.info-sections-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 2.5rem;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.info-centerer{
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    align-items: center;
+    justify-content: center;
+}
 .info-section {
-    gap: 2rem;
-    max-width: 80vw;
-    min-height: 40vh;
-    margin: 0 auto;
-    background-color: var(--primary-color);
-    padding: 2rem 2rem 2rem 2rem;
-    border-radius: 4px;
-        box-shadow: 0 4px 16px rgba(0,0,0,1);
+    position: relative; /* Necesario para el overlay */
+    display: grid; 
+    grid-template-rows: 1fr 2fr;
+    width: 20rem;
+    background: #fff;
+    color: #223;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(30, 41, 59, 0.18);
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 0;
+    overflow: hidden;
+    gap: 0;
+    height: 40vh;
+    transition: color 0.2s, border-color 0.2s, background 0.2s, height 0.2s, width 0.2s;
 }
-
-.info-card {
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    justify-content: start;
-    width: 1;
-    gap: 2rem;
+.info-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(30, 41, 59, 0); /* Sin oscurecer por defecto */
+    transition: background 0.3s;
+    z-index: 1;
+    pointer-events: none;
+    border-radius: 18px;
 }
-
-.info-card img{
+.info-section:hover::before {
+    background: rgba(255, 255, 255, 0.45); /* Oscurece al hacer hover */
+}
+.info-section > * {
+    position: relative;
+    z-index: 2;
+}
+.info-section:nth-child(1){
+    background-image: url("../img/raw.png");
+    background-position: center;
+    background-size: cover;
+}  
+.info-section:nth-child(2){
+    background-image: url("../img/merch.png");
+    background-position: center;
+    background-size: cover;
+}  
+.info-section:nth-child(3){
+    background-image: url("../img/discord.webp");
+    background-position: center;
+    background-size: cover;
+}  
+.info-section:hover{
+    width: 30rem;
+    color: #fff;
+    box-shadow: 0 4px 30px rgb(0, 0, 0);
+}
+.info-section img,
+.info-section.reverse img {
     width: 100%;
     height: 100%;
-    border: var(--primary-color) 4px solid;
-    border-radius: 10px;
+    border-radius: 0;
+    border: none;
+    margin: 0;
 }
+
 .info-text {
+    padding: 1.5rem 1.5rem 1.5rem 1.5rem;
     display: flex;
-    max-width: 100%;
-    font-size: 1rem;
-    line-height: 1.4;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 0.9rem;
+    color: #223;
+
+    min-height: 180px;
 }
 
 .info-section.reverse {
-    display: grid;
-    grid-template-columns: 5fr 2fr;
-    background-color: var(--secondary-color);
+    flex-direction: row-reverse;
+    background: #fff;
+    color: #223;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(30, 41, 59, 0.18);
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 0;
+    overflow: hidden;
+    gap: 0;
+}
 
+.info-section.reverse .info-text {
+    background: #fff;
+    color: #223;
 }
-.info-section.reverse img{
-    width: 30em;
-    height: 20em;
-    border: var(--secondary-color) 4px solid;
-    border-radius: 10px
-}
+
+
 footer {
     border-top: 2px solid #bbb;
     text-align: center;
@@ -257,5 +336,27 @@ footer {
         flex-direction: column;
         align-items: center;
         gap: 1rem;
+    }
+}
+
+@media (max-width: 700px) {
+    .info-section,
+    .info-section.reverse {
+        flex-direction: column;
+        max-width: 95vw;
+    }
+    .info-card,
+    .info-section.reverse {
+        flex-direction: column;
+    }
+    .info-card img,
+    .info-section.reverse img {
+        width: 100%;
+        height: 180px;
+        border-radius: 18px 18px 0 0;
+    }
+    .info-text {
+        padding: 1rem;
+        min-height: unset;
     }
 }
