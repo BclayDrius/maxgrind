@@ -1,0 +1,183 @@
+/* Training Pages Shared Styles */
+
+/* Hero Section */
+.training-hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../img/training-hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    margin-bottom: 4rem;
+}
+
+.training-hero-content {
+    max-width: 800px;
+    padding: 0 2rem;
+}
+
+.training-hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+.training-hero p {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+/* Training Content */
+.training-content {
+    padding: 0 2rem 4rem;
+}
+
+.training-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.training-section {
+    margin-bottom: 4rem;
+}
+
+.training-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #333;
+}
+
+/* Programs Grid */
+.programs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.program-card {
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.program-card:hover {
+    transform: translateY(-5px);
+}
+
+.program-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.program-card p {
+    color: #666;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.program-card ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+}
+
+.program-card ul li {
+    color: #666;
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.program-card ul li:before {
+    content: "•";
+    color: #007bff;
+    position: absolute;
+    left: 0;
+}
+
+.program-card .btn {
+    width: 100%;
+    padding: 0.75rem;
+    font-weight: 600;
+}
+
+/* Resources Grid */
+.resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.resource-card {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.resource-card:hover {
+    background: #e9ecef;
+}
+
+.resource-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.resource-card p {
+    color: #666;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .training-hero {
+        height: 50vh;
+    }
+
+    .training-hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .training-hero p {
+        font-size: 1.1rem;
+    }
+
+    .training-section h2 {
+        font-size: 2rem;
+    }
+
+    .programs-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .training-hero {
+        height: 40vh;
+    }
+
+    .training-hero h1 {
+        font-size: 2rem;
+    }
+
+    .training-content {
+        padding: 0 1rem 3rem;
+    }
+
+    .program-card {
+        padding: 1.5rem;
+    }
+} 
