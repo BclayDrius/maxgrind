@@ -1,5 +1,5 @@
 # maxgrind
-Proyecto de web
+------Proyecto de web------
 La página tendrá:
 -Usuario:
     *Nombre de Usuario
