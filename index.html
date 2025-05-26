@@ -13,7 +13,28 @@
 <body>
     <div class="overlay"></div>
     <header>
-        <nav id="navbar"></nav>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#"><img src="../img/logos/maxgrind-textimg-white.png" alt="" /></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="../pages/login.html">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../pages/register.html">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </header>
     <main>
         <section class="hero">
@@ -53,13 +74,13 @@
             </a>
         </article>
         <article class="card-grid-unit">
-            <div class="card">
-                <img src="img/paulocosta.webp" alt="Placeholder">
+            <a class="card" href="#">
+                <img src="img/paulocosta.webp" alt="Placeholder" >
                 <div class="card-text">
                     <h2>¿Probamos combinar?</h2>
                     <p>Combina fuerza, técnica y resistencia. Sé completo como los profesionales que dominan múltiples disciplinas para destacar al máximo.</p>
                 </div>
-            </div>
+            </a>
         </article>
 
                             </div>
@@ -82,7 +103,24 @@
             </div>
         </section>
     </main>
-    <footer id="footer"></footer>
+    <footer>
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+        <p style="margin: 0; font-size: 1rem;">
+            &copy; 2025 MaXGrind. Todos los derechos reservados.<br>
+            Plataforma integral de entrenamiento: Hipertrofia, Powerlifting, Deportes de Combate, Calistenia y Rutinas
+            Mixtas.<br>
+            Recuerda: el progreso real se construye con entrenamiento, alimentación consciente y buen descanso.<br>
+            Síguenos en redes sociales para más consejos y novedades.
+        </p>
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;">
+            <img src="../img/logos/af.png" alt="Afer Life Logo"
+                style="height: 28px; width: 28px; object-fit: contain; border-radius: 6px;">
+            <span style="font-size: 0.95em; color: #bbb;">
+                Proyecto realizado con participación de <strong>Afer Life</strong>
+            </span>
+        </div>
+    </div>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
         crossorigin="anonymous"></script>
