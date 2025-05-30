@@ -1,13 +1,13 @@
 const hero = document.querySelector('.hero');
-const cardsGrid = document.querySelector('.cards-grid-container');
+const routinesGrid = document.querySelector('.routines-grid-container');
 
 window.addEventListener('scroll', () => {
     if (window.scrollY > 120) {
         hero.classList.add('hidden');
-        cardsGrid.classList.add('expanded');
+        routinesGrid.classList.add('expanded');
     } else {
         hero.classList.remove('hidden');
-        cardsGrid.classList.remove('expanded');
+        routinesGrid.classList.remove('expanded');
     }
 });
 function includeLayout() {

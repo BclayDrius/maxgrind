@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/training.css">
     <title>MaXGrind - Deportes de Combate</title>
@@ -14,22 +13,42 @@
 <body>
     <div class="overlay"></div>
     <header>
-        <nav id="navbar"></nav>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../index.html"><img src="../img/logos/maxgrind-textimg-white.png" alt="MaXGrind Logo" /></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="register.html">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="home.html">Home</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </header>
     <main>
-        <section class="training-hero">
-            <div class="training-hero-content">
+        <section class="combate-hero">
+            <div class="combate-hero-content">
                 <h1>Deportes de Combate</h1>
                 <p>Entrena como tus ídolos del ring. Forja cuerpo y mente para convertirte en un verdadero guerrero moderno.</p>
             </div>
         </section>
-
-        <section class="training-content">
-            <div class="training-container">
-                <div class="training-section">
+        <section class="combate-content">
+            <div class="combate-container">
+                <div class="combate-section">
                     <h2>Programas Disponibles</h2>
-                    <div class="programs-grid">
-                        <div class="program-card">
+                    <div class="combate-programs-grid">
+                        <div class="combate-program-card">
                             <h3>Boxeo Fundamental</h3>
                             <p>Domina los fundamentos del boxeo y desarrolla tu condición física.</p>
                             <ul>
@@ -37,9 +56,9 @@
                                 <li>Técnica básica</li>
                                 <li>Condicionamiento</li>
                             </ul>
-                            <button class="btn btn-primary">Comenzar</button>
+                            <button class="combate-btn">Comenzar</button>
                         </div>
-                        <div class="program-card">
+                        <div class="combate-program-card">
                             <h3>MMA Completo</h3>
                             <p>Entrenamiento integral que combina diferentes disciplinas de combate.</p>
                             <ul>
@@ -47,9 +66,9 @@
                                 <li>Múltiples disciplinas</li>
                                 <li>Preparación física</li>
                             </ul>
-                            <button class="btn btn-primary">Comenzar</button>
+                            <button class="combate-btn">Comenzar</button>
                         </div>
-                        <div class="program-card">
+                        <div class="combate-program-card">
                             <h3>Jiu-Jitsu Brasileño</h3>
                             <p>Aprende la técnica y estrategia del arte suave.</p>
                             <ul>
@@ -57,23 +76,22 @@
                                 <li>Técnica y rolling</li>
                                 <li>Desarrollo mental</li>
                             </ul>
-                            <button class="btn btn-primary">Comenzar</button>
+                            <button class="combate-btn">Comenzar</button>
                         </div>
                     </div>
                 </div>
-
-                <div class="training-section">
+                <div class="combate-section">
                     <h2>Recursos Adicionales</h2>
-                    <div class="resources-grid">
-                        <div class="resource-card">
+                    <div class="combate-resources-grid">
+                        <div class="combate-resource-card">
                             <h3>Técnicas Avanzadas</h3>
                             <p>Biblioteca de videos con técnicas detalladas de cada disciplina.</p>
                         </div>
-                        <div class="resource-card">
+                        <div class="combate-resource-card">
                             <h3>Nutrición para Combate</h3>
                             <p>Guías específicas para optimizar tu rendimiento en el ring.</p>
                         </div>
-                        <div class="resource-card">
+                        <div class="combate-resource-card">
                             <h3>Comunidad de Luchadores</h3>
                             <p>Conecta con otros practicantes y comparte experiencias.</p>
                         </div>
@@ -91,16 +109,14 @@
                 Síguenos en redes sociales para más consejos y novedades.
             </p>
             <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;">
-                <img src="img/af.png" alt="Afer Life Logo" style="height: 28px; width: 28px; object-fit: contain; border-radius: 6px;">
+                <img src="../img/logos/af.png" alt="Afer Life Logo" style="height: 28px; width: 28px; object-fit: contain; border-radius: 6px;">
                 <span style="font-size: 0.95em; color: #bbb;">
-                    Proyecto realizado con participación de <strong>Afer Life</strong>
+                    Proyecto realizado con participación de <strong>After Life</strong>
                 </span>
             </div>
         </div>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../scripts/script.js"></script>
 </body>
 
