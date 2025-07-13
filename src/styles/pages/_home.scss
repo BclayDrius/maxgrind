@@ -1,0 +1,232 @@
+@use "../base/variables" as *;
+@use "../base/mixins" as *;
+
+
+// ========== HEADER USER INFO ==========
+.home-user-info {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+
+    .home-user-avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            width: 2rem;
+            height: 2rem !important;
+            margin-right: 0.4rem;
+            border-radius: 50%;
+            background: #fff;
+        }
+
+        .home-user-name {
+            font-weight: 600;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+    }
+}
+
+.notifications-icon img {
+    width: 90%;
+    height: 1.7rem !important;
+}
+
+// --- Routine Section ---
+.home-routine {
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .home-routine-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        background-color: #dddddd;
+        height: 40vh;
+        width: 80vw;
+        border-radius: 0.5rem;
+
+        h2 {
+            font-size: 1.4rem;
+            color: #222;
+            font-weight: 400;
+            align-self: flex-start;
+            margin-left: 1.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .home-routine-plus {
+            width: 80px;
+            height: 80px;
+            display: block;
+            margin-bottom: 1.2rem;
+        }
+
+        p {
+            color: #222;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+    }
+}
+
+.home-extra-title {
+    background: $primary-color;
+    color: white;
+    font-size: 1.6rem;
+    padding: 0.7rem 1.2rem;
+    border-radius: 0;
+    margin: 1.5rem 0 2rem 0;
+    text-align: center;
+    font-weight: 400;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Georgia', serif;
+    border-radius: 0.5rem;
+}
+
+// --- Extra Routine Cards ---
+.home-extra {
+    display: flex;
+    gap: 2.5rem;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 2.5rem;
+
+    .extra-card {
+        background-color: $secondary-color;
+        height: 50vh;
+        width: 25vw;
+        border-radius: 0.5rem;
+
+        img {
+            width: 100%;
+            height: 25vh;
+            object-fit: cover;
+            border-radius: 0;
+            margin-bottom: 0.7rem;
+        }
+
+        .extra-card-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #222;
+            margin: 0 0 0.7rem 0;
+            padding: 0 1.2rem;
+        }
+
+        .extra-card-desc {
+            font-size: 1.15rem;
+            color: #222;
+            margin: 0 0 2.5rem 0;
+            padding: 0 1.2rem;
+        }
+
+
+        .extra-card-mini-icon-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 0 1.2rem 0 1.2rem;
+
+            .extra-card-flag {
+                width: 36px;
+                height: 26px;
+                border-radius: 3px;
+                left: 16px;
+            }
+
+            .extra-card-icon {
+                width: 28px;
+                height: 28px;
+                opacity: 0.85;
+                right: 16px;
+            }
+        }
+    }
+}
+
+// --- Updates Section ---
+.home-updates-section {
+    margin-top: 2.5rem;
+    text-align: center;
+
+    h2 {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: $secondary-color;
+        margin-bottom: 0.2rem;
+    }
+
+    .home-updates-card {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        padding: 1.2rem;
+        gap: 1.5rem;
+        max-width: 600px;
+        margin: 0 auto 2rem auto;
+        border: 2px solid #e5e5e5;
+
+        img {
+            width: 180px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .home-updates-card-content {
+            text-align: left;
+
+            p {
+                font-size: 1rem;
+                color: #2e2323;
+                margin-bottom: 0.5rem;
+            }
+
+            .home-updates-card-flag {
+                width: 22px;
+                height: 16px;
+                border-radius: 3px;
+                margin-right: 0.5rem;
+            }
+
+            span {
+                font-size: 0.95rem;
+                color: #ffa700;
+                font-weight: 600;
+                margin-top: 0.7rem;
+            }
+        }
+    }
+}
+
+
+// ========== RESPONSIVE ==========
+@media (max-width: $tablet-viewport) {
+    .home-extra {
+        align-items: center;
+        flex-direction: column;
+        gap: 1.2rem;
+
+        .extra-card {
+            width: 80vw;
+            min-width: 0;
+        }
+    }
+
+    .home-updates-card img {
+        width: 100%;
+        height: 120px;
+    }
+}

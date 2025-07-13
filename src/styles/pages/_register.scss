@@ -1,0 +1,33 @@
+@use "../base/variables" as *;
+@use "../base/mixins" as *;
+/* ==========================
+    REGISTER PAGE STYLES (register.html)
+   ========================== */
+.register-section {
+    @include login-register-section();
+}
+
+.register-container {
+    @include login-register-container();
+
+    h2,
+    p,
+    label {
+        color: $text-color;
+        text-align: center;
+    }
+
+    a {
+        color: $secondary-color !important;
+    }
+}
+
+.register-form {
+    @include login-register-form();
+
+
+    button {
+        @include login-register-button();
+    }
+
+}

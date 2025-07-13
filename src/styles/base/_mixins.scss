@@ -1,0 +1,193 @@
+@use "../base/variables" as *;
+
+
+@mixin hero-section($bg-url) {
+    background: linear-gradient(rgba(46, 35, 35, 0.85), rgba(255, 167, 0, 0.25)), url($bg-url);
+    background-size: cover;
+    background-position: center;
+    height: 55vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: $text-color;
+    margin-bottom: 3rem;
+    border-radius: 0 0 32px 32px;
+    box-shadow: 0 6px 32px rgba(0, 0, 0, 0.18);
+
+    h1 {
+        color: $secondary-color;
+        font-size: 2.7rem;
+        margin-bottom: 1.2rem;
+        font-weight: 700;
+    }
+
+    p {
+        color: #fff;
+        font-size: 1.25rem;
+        margin: 0;
+    }
+}
+
+@mixin routine-categories-section {
+    padding: 0 2rem 4rem;
+
+    h2 {
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+        text-align: center;
+        color: $secondary-color;
+    }
+}
+
+@mixin routine-container-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+@mixin routine-card {
+    background: $background-color;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    border: 2px solid $primary-color;
+
+    &:hover {
+        transform: translateY(-5px);
+        border-color: $secondary-color;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: $primary-color;
+    }
+
+    p {
+        color: #666;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+
+    ul li {
+        color: #666;
+        margin-bottom: 0.5rem;
+        padding-left: 1.5rem;
+        position: relative;
+    }
+
+    button {
+        width: 100%;
+        padding: 0.8rem;
+        font-weight: 700;
+        background: $secondary-color;
+        color: $primary-color;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        transition: background 0.2s, color 0.2s;
+        cursor: pointer;
+
+        &:hover {
+            background: $primary-color;
+            color: $secondary-color;
+        }
+    }
+}
+
+@mixin additional-section {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+
+    h2 {
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+        text-align: center;
+        color: $secondary-color;
+    }
+}
+
+@mixin additional-card {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    border: 2px solid $primary-color;
+
+    &:hover {
+        background: #e9ecef;
+        border-color: $secondary-color;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+        color: $primary-color;
+    }
+
+    p {
+        color: #666;
+        margin: 0;
+        line-height: 1.6;
+    }
+}
+
+@mixin login-register-section() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - $navbar-height);
+    padding: 2rem;
+}
+
+@mixin login-register-container() {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background: $primary-color;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 30px rgb(0, 0, 0);
+    height: auto;
+    width: 20vw;
+    min-width: 350px;
+}
+
+@mixin login-register-form() {
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    text-align: left;
+
+    &>* {
+        margin: 10px 0 20px 0;
+        padding: 2px;
+    }
+}
+
+@mixin login-register-button() {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: $secondary-color;
+    color: $text-color;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    cursor: pointer;
+
+    &:hover {
+        background-color: ($secondary-color, 10%);
+    }
+}

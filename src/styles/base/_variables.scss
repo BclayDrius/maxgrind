@@ -1,0 +1,24 @@
+:root {
+    --primary-color: #2e2323;
+    --secondary-color: rgb(255, 167, 0);
+    --background-color: #ffffff;
+    --text-color: #ffffff;
+    --phone-viewport: 480px;
+    --tablet-viewport: 768px;
+    --navbar-height: 4rem;
+    --hero-height: 40vh;
+}
+
+$primary-color: var(--primary-color);
+$secondary-color: var(--secondary-color);
+
+$background-color: var(--background-color);
+$text-color: var(--text-color);
+
+$phone-viewport: 480px; //  not using the root ones cuz doesn't work xd
+$tablet-viewport: 768px;
+
+$navbar-height: var(--navbar-height);
+
+$hero-height: var(--hero-height);
+$hero-height-tablet: calc(var(--hero-height) - 2rem); // Adjusted for mobile view

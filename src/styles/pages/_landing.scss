@@ -1,0 +1,362 @@
+@use "../base/variables" as *;
+
+/* ==========================
+    ESTILOS DE LA PÁGINA PRINCIPAL (index.html)
+========================== */
+.hero {
+    height: $hero-height;
+    padding: 4rem 0 3rem 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(120deg, rgba(46, 35, 35, 0.92) 60%, rgba(255, 167, 0, 0.35)), url("/src/assets/video/maxgrind-hero.mp4");
+    background-size: cover;
+    background-position: center;
+    color: $text-color;
+    overflow: hidden;
+    opacity: 0.95;
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, rgba(46, 35, 35, 0.7) 60%, rgba(255, 167, 0, 0.18));
+        z-index: 1;
+    }
+
+    .hero-text {
+        text-align: center;
+        position: relative;
+        z-index: 2;
+        background: rgba(0, 0, 0, 0.38);
+        padding: 2.5rem 2.5rem 2rem 2.5rem;
+        border-radius: 18px;
+        box-shadow: 0 4px 32px rgba(0, 0, 0, 0.18);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        animation: hero-text-pop 1.3s cubic-bezier(0.4, 0, 0.2, 1);
+        opacity: 1;
+
+        &:hover {
+            background-color: $primary-color;
+            transform: scale(1.02);
+            box-shadow: 0 6px 36px rgba(0, 0, 0, 0.25);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: $secondary-color;
+            margin-bottom: 1.2rem;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 8px #000a;
+        }
+
+        p {
+            font-size: 1.35rem;
+            color: #fff;
+            text-shadow: 0 1px 4px #0008;
+            margin-bottom: 2rem;
+        }
+
+        .hero-btn {
+            font-weight: 700;
+            border-radius: 12px;
+            padding: 0.8rem 2.2rem;
+            font-size: 1.2rem;
+            background: $secondary-color;
+            color: $primary-color;
+            border: none;
+            box-shadow: 0 2px 12px rgba(255, 167, 0, 0.18);
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+            text-decoration: none;
+
+            &:hover {
+                background: $primary-color;
+                color: $secondary-color;
+                transform: translateY(-2px) scale(1.04);
+            }
+        }
+    }
+}
+
+.routine-info-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+    align-items: center;
+    width: 80vw;
+    margin: 2rem auto;
+    height: 70vh;
+    background-image: url('../img/logos/maxgrind-bglogo.png');
+    background-color: $primary-color;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 30%;
+    border-radius: 4px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 1);
+    gap: 0;
+}
+
+.routine-info-item {
+    position: relative; // necesario para posicionar el overlay
+    justify-content: center;
+    align-items: center;
+    background: $secondary-color;
+    width: 80%;
+    height: 80%;
+    box-shadow: 0 4px 16px rgb(0, 0, 0);
+    border-radius: 8px;
+    margin: auto;
+    transition: color 0.2s, border-color 0.2s, background 0.2s, height 0.2s, width 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+    border: 2px solid transparent;
+    text-decoration: none;
+    z-index: 0;
+
+    & {
+        background-position: center;
+        background-size: cover;
+
+        // Overlay encima del background-image
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.2); // leve oscurecimiento inicial
+            transition: background-color 0.3s ease;
+            z-index: 1;
+        }
+
+        &:hover::before {
+            background-color: rgba(0, 0, 0, 0.5); // más oscuro al hacer hover
+        }
+
+        // Si tenés texto o contenido adentro, asegurate que esté encima
+        >* {
+            position: relative;
+            z-index: 2;
+        }
+    }
+
+    &:nth-child(1) {
+        background-image: url('../img/power-hiper.jpg');
+    }
+
+    &:nth-child(2) {
+        background-image: url('../img/calisthenics.webp');
+    }
+
+    &:nth-child(3) {
+        background-image: url('../img/combate.jpg');
+    }
+
+    &:nth-child(4) {
+        background-image: url('../img/buff.webp');
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        background: #ddd;
+        border-radius: 4px 0 0 4px;
+        display: block;
+    }
+
+    &-text {
+        padding: 0.5rem 0.5rem 0.5rem 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+
+        h2 {
+            font-size: 1.5rem;
+            margin: 0 0 0.2rem 0;
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 1.1em;
+            margin: 0;
+            text-align: center;
+        }
+    }
+}
+
+.quick-links-section {
+    display: flex;
+    flex-direction: row;
+    gap: 2.5rem;
+    height: 40vh;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin: 2.5rem 0;
+}
+
+.quick-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 30vh;
+    width: 20vw;
+    background: #fff;
+    color: #223;
+    border: 2px solid white;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(30, 41, 59, 0.18);
+    overflow: hidden;
+    text-decoration: none;
+    transition: color 0.2s, border-color 0.2s, background 0.2s, height 0.2s, width 0.2s, box-shadow 0.2s;
+
+    &:hover {
+        height: 35vh;
+        width: 25vw;
+        background: #fff;
+        color: #223;
+        border-radius: 18px;
+        box-shadow: 0 4px 24px rgb(30, 41, 59);
+        border: 3px solid $secondary-color;
+        border-radius: 25px;
+
+        * {
+            background-color: $secondary-color;
+            color: white;
+        }
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        background: #eee;
+        border-radius: 18px 18px 0 0;
+        display: block;
+    }
+
+    &-text {
+        width: 100%;
+        padding: 1.2rem 0.5rem;
+        text-align: center;
+        font-size: 1.25rem;
+        font-weight: 600;
+        background: #fff;
+        color: #222;
+        border-radius: 0 0 18px 18px;
+        flex: 1 1 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.about-section {
+    background: linear-gradient(rgba(255, 167, 0, 0.25), rgb(46, 35, 35));
+    background-size: cover;
+    background-position: center;
+    color: $text-color;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 20vh;
+    margin: 0;
+}
+
+.about {
+    width: 60%;
+}
+
+@media (max-width: $tablet-viewport) {
+    .hero {
+        height: $hero-height-tablet;
+    }
+
+    .hero h1 {
+        font-size: 2rem !important;
+    }
+
+    .routine-info-section {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        height: 75vh;
+        width: 92vw;
+        padding: 0.5em 0 0.5rem 0;
+    }
+
+    .routine-info-item {
+        width: 95%;
+        height: 95%;
+        transition: width 0.2s, height 0.2s;
+
+        &:hover {
+            width: 100%;
+            height: 100%;
+        }
+
+        &-text {
+            h2 {
+                font-size: 1.3rem;
+                margin: 0 0 0.2rem 0;
+                font-weight: bold;
+            }
+
+            p {
+                font-size: 0.9em;
+                margin: 0;
+                text-align: center;
+            }
+        }
+    }
+
+    .quick-links-section {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center;
+        height: 95vh;
+    }
+
+    .quick-link {
+        height: 100%;
+        width: 90vw;
+
+        &:hover {
+            height: 80vh;
+            width: 80vw;
+        }
+    }
+
+    .about {
+        width: 90%;
+    }
+}
+
+@media (max-width: $phone-viewport) {
+    .routine-info-item-text {
+        h2 {
+            font-size: 0.9rem;
+        }
+
+        p {
+            font-size: 0.7rem;
+        }
+    }
+
+    .about-section {
+        height: 35vh;
+    }
+
+    .about {
+        height: auto;
+        width: 95%;
+    }
+}

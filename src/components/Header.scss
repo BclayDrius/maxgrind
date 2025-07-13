@@ -1,0 +1,79 @@
+@use "/src/styles/base/" as *;
+
+/*/ ==========================
+    ESTILOS DEL HEADER
+   ========================== */
+header {
+    background: $primary-color;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    opacity: 0.95;
+    height: $navbar-height;
+
+    .navbar {
+        background-color: $primary-color !important;
+        height: 100%;
+        color: white !important;
+        font-family: 'Gotham', sans-serif;
+        padding: 0;
+        margin: 0;
+
+        a {
+            height: 3.5rem;
+            display: flex;
+            align-items: center !important;
+            justify-content: center !important;
+
+            h1 {
+                height: 1.8rem;
+                font-size: 1.8rem;
+                margin: 0 0 0 0.5em;
+
+            }
+
+            &:hover {
+                color: $secondary-color !important;
+            }
+        }
+
+        .nav-item {
+            font-size: 18px;
+            margin: 0 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+    }
+
+    .navbar-collapse#navbarNav {
+        max-width: 260px !important;
+        justify-content: end;
+        background-color: $primary-color;
+        border-radius: 20px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+
+        *:hover {
+            color: $secondary-color !important;
+        }
+    }
+
+    .navbar-toggler {
+        border-color: white !important;
+    }
+
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+}
+
+@media (max-width: 991px) {
+    header .navbar-collapse#navbarNav {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+}
