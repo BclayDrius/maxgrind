@@ -1,10 +1,7 @@
-import { useState } from "react";
 import Header from "./components/Header";
 import "/src/styles/styles.scss";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
       <meta charSet="UTF-8" />
@@ -15,7 +12,6 @@ function App() {
         integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT"
         crossOrigin="anonymous"
       />
-      <link rel="stylesheet" href="css/style.css" />
       <link
         rel="icon"
         href="/src/assets/img/logos/500x500-maxgrind-bg-logo.png"
@@ -26,6 +22,13 @@ function App() {
       <Header />
       <main>
         <section className="hero">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            src="/src/assets/video/maxgrind-hero-720.mp4"
+          />
           <div className="hero-text">
             <h1>
               <span>MaXGrind:</span> The grind is eternal
