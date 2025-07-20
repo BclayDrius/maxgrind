@@ -1,17 +1,53 @@
 import Header from "./components/Header";
 import "./App.scss";
+import { useRef, useState, useEffect } from "react";
 
 function App() {
+  const [showContent, setShowContent] = useState(false);
+  const [isRoutineSectionEnlarged, setIsRoutineSectionEnlarged] =
+    useState(false);
+  const heroRef = useRef(null);
+  // Escucha scroll y muestra/oculta el hero según la posición
+  useEffect(() => {
+    const onScroll = () => {
+      const scrollPosition = window.scrollY;
+      const heroHeight = heroRef.current?.offsetHeight || 0;
+
+      console.log(
+        "Scroll position:",
+        scrollPosition,
+        "Hero height:",
+        heroHeight
+      );
+
+      if (scrollPosition > heroHeight * 0.75) {
+        console.log("Setting enlarged to true");
+        setShowContent(true);
+        setIsRoutineSectionEnlarged(true);
+      } else {
+        console.log("Setting enlarged to false");
+        setShowContent(false);
+        setIsRoutineSectionEnlarged(false);
+      }
+    };
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Animación al hacer click en la flecha
+  const handleArrowClick = () => {
+    console.log("Button clicked!");
+    setShowContent(true);
+    setIsRoutineSectionEnlarged(true);
+    console.log("States set, scrolling to:", heroRef.current.offsetHeight);
+    window.scrollTo({
+      top: heroRef.current.offsetHeight,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <>
-      <meta charSet="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT"
-        crossOrigin="anonymous"
-      />
       <link
         rel="icon"
         href="/src/assets/img/logos/500x500-maxgrind-bg-logo.png"
@@ -21,7 +57,10 @@ function App() {
       <div className="overlay" />
       <Header />
       <main>
-        <section className="hero">
+        <section
+          className={`hero${showContent ? " hero-hide" : ""}`}
+          ref={heroRef}
+        >
           <video
             autoPlay
             loop
@@ -37,13 +76,27 @@ function App() {
               MaXGrind is complete physical conditioning, don't let a single
               discipline limit you.
             </p>
+            <button className="hero-btn" onClick={handleArrowClick}>
+              Start Training
+            </button>
           </div>
         </section>
-        <section className="routine-info-section">
+        <section
+          className={`routine-info-section${
+            isRoutineSectionEnlarged ? " routine-info-section-enlarged" : ""
+          }`}
+        >
           <a
             className="routine-info-item"
             href="pages/hypertrophy-powerlifting.html"
           >
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              src="/src/assets/video/anrold.mp4"
+            />
             <div className="routine-info-item-text">
               <h2>Hypertrophy / Powerlifting</h2>
               <p>
@@ -56,6 +109,13 @@ function App() {
             className="routine-info-item"
             href="pages/calisthenics-streetlifting.html"
           >
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              src="/src/assets/video/calisthenics.webm"
+            />
             <div className="routine-info-item-text">
               <h2>Calisthenics / Streetlifting</h2>
               <p>
@@ -65,6 +125,13 @@ function App() {
             </div>
           </a>
           <a className="routine-info-item" href="pages/martial-arts.html">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              src="/src/assets/video/mma.webm"
+            />
             <div className="routine-info-item-text">
               <h2>Combat Sports</h2>
               <p>
@@ -74,6 +141,13 @@ function App() {
             </div>
           </a>
           <a className="routine-info-item" href="#">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              src="/src/assets/video/maxgrind-hero-720.mp4"
+            />
             <div className="routine-info-item-text">
               <h2>Shall we combine?</h2>
               <p>
