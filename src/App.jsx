@@ -1,8 +1,47 @@
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
+import Card from "./components/Card/Card";
+import Footer from "./components/Footer/Footer";
 import "./App.scss";
 import { useRef, useState, useEffect } from "react";
+import boxingImg from "./assets/img/boxing.jpg";
 
 function App() {
+  // this three lines are for the expansion of the routine info item when clicked
+  const [expandedRoutineIndex, setExpandedRoutineIndex] = useState(null);
+  const handleExpand = (index) => setExpandedRoutineIndex(index);
+  const handleCollapse = () => setExpandedRoutineIndex(null);
+  // array of routine info items
+  const routineData = [
+    {
+      link: "pages/hypertrophy-powerlifting.html",
+      video: "/src/assets/video/anrold.mp4",
+      title: "Hypertrophy / Powerlifting",
+      description:
+        "Gain strength and muscle mass with a clear focus. Choose your path and take it to the maximum physical level.",
+    },
+    {
+      link: "pages/calisthenics-streetlifting.html",
+      video: "/src/assets/video/calisthenics.webm",
+      title: "Calisthenics / Streetlifting",
+      description:
+        "Master your body weight and add brutal strength. Challenge gravity with control, skill, and additional load.",
+    },
+    {
+      link: "pages/martial-arts.html",
+      video: "/src/assets/video/mma.webm",
+      title: "Combat Sports",
+      description:
+        "Train like your ring idols. Forge body and mind to become a true modern warrior.",
+    },
+    {
+      link: "#",
+      video: "/src/assets/video/maxgrind-hero-720.mp4",
+      title: "Shall we combine?",
+      description:
+        "Combine strength, technique, and endurance. Be complete like the professionals who master multiple disciplines to excel to the maximum.",
+    },
+  ];
+
   const [showContent, setShowContent] = useState(false);
   const [isRoutineSectionEnlarged, setIsRoutineSectionEnlarged] =
     useState(false);
@@ -34,7 +73,7 @@ function App() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Animación al hacer click en la flecha
+  // Scrolldown button
   const handleArrowClick = () => {
     console.log("Button clicked!");
     setShowContent(true);
@@ -46,6 +85,26 @@ function App() {
     });
   };
 
+  document.querySelectorAll(".routine-info-item").forEach((item) => {
+    const video = item.querySelector("video");
+    const videoSrc = video.dataset.src; // or direct src attribute
+
+    // Set video source and preload
+    if (videoSrc && !video.src) {
+      video.src = videoSrc;
+      video.load();
+    }
+
+    item.addEventListener("mouseenter", () => {
+      video.currentTime = 0; // Start from beginning
+      video.play().catch((e) => console.log("Video play failed"));
+    });
+
+    item.addEventListener("mouseleave", () => {
+      video.pause();
+      video.currentTime = 0; // Reset to first frame
+    });
+  });
   return (
     <>
       <link
@@ -81,156 +140,77 @@ function App() {
             </button>
           </div>
         </section>
+
         <section
           className={`routine-info-section${
             isRoutineSectionEnlarged ? " routine-info-section-enlarged" : ""
           }`}
         >
-          <a
-            className="routine-info-item"
-            href="pages/hypertrophy-powerlifting.html"
-          >
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              src="/src/assets/video/anrold.mp4"
-            />
-            <div className="routine-info-item-text">
-              <h2>Hypertrophy / Powerlifting</h2>
-              <p>
-                Gain strength and muscle mass with a clear focus. Choose your
-                path and take it to the maximum physical level.
-              </p>
-            </div>
-          </a>
-          <a
-            className="routine-info-item"
-            href="pages/calisthenics-streetlifting.html"
-          >
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              src="/src/assets/video/calisthenics.webm"
-            />
-            <div className="routine-info-item-text">
-              <h2>Calisthenics / Streetlifting</h2>
-              <p>
-                Master your body weight and add brutal strength. Challenge
-                gravity with control, skill, and additional load.
-              </p>
-            </div>
-          </a>
-          <a className="routine-info-item" href="pages/martial-arts.html">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              src="/src/assets/video/mma.webm"
-            />
-            <div className="routine-info-item-text">
-              <h2>Combat Sports</h2>
-              <p>
-                Train like your ring idols. Forge body and mind to become a true
-                modern warrior.
-              </p>
-            </div>
-          </a>
-          <a className="routine-info-item" href="#">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              src="/src/assets/video/maxgrind-hero-720.mp4"
-            />
-            <div className="routine-info-item-text">
-              <h2>Shall we combine?</h2>
-              <p>
-                Combine strength, technique, and endurance. Be complete like the
-                professionals who master multiple disciplines to excel to the
-                maximum.
-              </p>
-            </div>
-          </a>
+          {routineData.map((routine, idx) => {
+            const isExpanded = expandedRoutineIndex === idx;
+            const isFaded =
+              expandedRoutineIndex !== null && expandedRoutineIndex !== idx;
+            return (
+              <div
+                key={idx}
+                className={`routine-info-item${isExpanded ? " expanded" : ""}${
+                  isFaded ? " faded" : ""
+                }${expandedRoutineIndex === null ? " before-expand" : ""}`}
+                onClick={(e) => {
+                  if (expandedRoutineIndex === null) {
+                    e.preventDefault();
+                    handleExpand(idx);
+                  }
+                }}
+              >
+                {isExpanded && (
+                  <button
+                    className="close-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleCollapse();
+                    }}
+                  >
+                    ×
+                  </button>
+                )}
+                <video
+                  muted
+                  playsInline
+                  preload="metadata"
+                  src={routine.video}
+                  autoPlay={isExpanded}
+                  loop={isExpanded}
+                />
+                <div className="routine-info-item-text">
+                  <h2>{routine.title}</h2>
+                  <p>{routine.description}</p>
+                </div>
+              </div>
+            );
+          })}
         </section>
         {/* Links informativos */}
         <section className="quick-links-section">
-          <a className="quick-link" href="">
-            <img src="img/logos/changelog-transparent.png" alt="Changelog" />
-            <div className="quick-link-text">Changelog</div>
-          </a>
-          <a className="quick-link" href="">
-            <img src="img/logos/merch-transparent.png" alt="Merch" />
-            <div className="quick-link-text">Merch</div>
-          </a>
-          <a className="quick-link" href="">
-            <img src="img/logos/community-transparent.png" alt="Community" />
-            <div className="quick-link-text">Community</div>
-          </a>
+          <Card
+            link="https://legacy.reactjs.org/docs/components-and-props.html"
+            img={boxingImg}
+            name="Boxing"
+          />
+          <Card
+            link="https://legacy.reactjs.org/docs/components-and-props.html"
+            img={boxingImg}
+            name="Boxing"
+          />
+          <Card
+            link="https://legacy.reactjs.org/docs/components-and-props.html"
+            img={boxingImg}
+            name="Boxing"
+          />
         </section>
         {/* Hero informativo al final */}
-        <section className="about-section">
-          <div className="about">
-            <h2>What is MaXGrind?</h2>
-            <p>
-              MaXGrind is a comprehensive physical and mental training platform,
-              designed for those seeking to progress with purpose, technique,
-              and warrior mindset. Here you'll find routines, community, and
-              resources to take your training to the next level.
-            </p>
-          </div>
-        </section>
       </main>
-      <footer>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "0.5rem",
-          }}
-        >
-          <p style={{ margin: 0, fontSize: "1rem" }}>
-            © 2025 MaXGrind. All rights reserved.
-            <br />
-            Comprehensive training platform: Hypertrophy, Powerlifting, Combat
-            Sports, Calisthenics, and Mixed Routines.
-            <br />
-            Remember: real progress is built with training, mindful nutrition,
-            and good rest.
-            <br />
-            Follow us on social media for more tips and updates.
-          </p>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              marginTop: "0.5rem",
-            }}
-          >
-            <img
-              src="img/logos/af.png"
-              alt="Afer Life Logo"
-              style={{
-                height: 28,
-                width: 28,
-                objectFit: "contain",
-                borderRadius: 6,
-              }}
-            />
-            <span style={{ fontSize: "0.95em", color: "#bbb" }}>
-              Project carried out with participation from{" "}
-              <strong>After Life</strong>
-            </span>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }

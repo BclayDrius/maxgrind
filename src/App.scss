@@ -38,17 +38,20 @@
     }
 
     .hero-text {
+        height: auto;
+        width: auto;
         text-align: center;
         position: relative;
         z-index: 2;
         background: rgba(0, 0, 0, 0.38);
         padding: 2.5rem 2.5rem 2rem 2.5rem;
-        border-radius: 18px;
+        border-radius: 4px;
         box-shadow: 0 4px 32px rgba(0, 0, 0, 0.18);
         display: flex;
         flex-direction: column;
         align-items: center;
         animation: hero-text-pop 1.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
         opacity: 1;
 
         &:hover {
@@ -75,7 +78,7 @@
 
         .hero-btn {
             font-weight: 700;
-            border-radius: 12px;
+            border-radius: 8px;
             padding: 0.8rem 2.2rem;
             font-size: 1.2rem;
             background: $secondary-color;
@@ -89,6 +92,7 @@
                 background: $primary-color;
                 color: $secondary-color;
                 transform: translateY(-2px) scale(1.04);
+                cursor: pointer;
             }
         }
     }
@@ -112,112 +116,155 @@
     overflow: hidden; // Prevent expanded items from breaking container
 
     &.routine-info-section-enlarged {
-        height: 90vh;
+        height: 85vh;
         width: 90vw;
         margin: 3rem auto;
-
-        .routine-info-item {
-            border: 3px solid $secondary-color;
-        }
     }
 
     // When any item is hovered, shrink others to 80%
-    &:has(.routine-info-item:hover) .routine-info-item:not(:hover) {
-        width: 80%;
-        height: 100%;
-        opacity: 0.7;
-        transition: width 0.3s ease-in-out, opacity 0.3s ease;
+    // and apply a fade effect
+    // This uses the :has() pseudo-class, which is not widely supported yet
+    // :not(:hover) is used to target items that are not being hovered
+    .routine-info-item.before-expand:hover {
+        width: 140%;
+        z-index: 10;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        border: 4px solid $secondary-color;
     }
-}
 
-.routine-info-item {
-    position: relative; // necesario para posicionar el overlay
-    justify-content: center;
-    align-items: center;
-    width: 25%;
-    height: 100%;
-    margin: auto;
-    transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease, width 0.3s ease-in-out, box-shadow 0.3s ease, opacity 0.3s ease;
-    overflow: hidden;
-    border: 2px solid transparent;
-    text-decoration: none;
-    z-index: 0;
+    .routine-info-item.before-expand:not(:hover) {
+        width: 60%;
+        opacity: 0.3;
+        transition:
+            opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+            transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+            width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+            height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-    & {
+    .routine-info-item {
+        position: relative; // necesario para posicionar el overlay
+        justify-content: center;
+        align-items: center;
+        width: 25%;
+        height: 100%;
+        margin: auto;
+        transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease, width 0.3s ease-in-out, box-shadow 0.3s ease, opacity 0.3s ease-in-out;
+        overflow: hidden;
+        border: 2px solid transparent;
+        text-decoration: none;
+        z-index: 0;
         background-position: center;
         background-size: cover;
-
-        // Overlay encima del background-image
-        &::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background-color: rgba(0, 0, 0, 0.2); // leve oscurecimiento inicial
-            transition: background-color 0.3s ease;
-            z-index: 1;
-        }
+        inset: 0;
 
         &:hover {
             width: 120%;
             z-index: 10;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border: 4px solid $secondary-color;
         }
 
-        &:hover::before {
-            background-color: rgba(0, 0, 0, 0.5); // más oscuro al hacer hover
-        }
+
 
         // Si tenés texto o contenido adentro, asegurate que esté encima
         >* {
             position: relative;
             z-index: 2;
         }
-    }
-
-    video {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        z-index: 0;
-        opacity: 0.95;
-        pointer-events: none;
-    }
-
-    &::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(90deg, rgba(46, 35, 35, 0.7) 60%, rgba(255, 167, 0, 0.18));
-        z-index: 1;
-    }
 
 
-    &-text {
-        padding: 0.5rem 0.5rem 0.5rem 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        width: 100%;
-        max-width: 100%;
-
-        h2 {
-            font-size: 1.5rem;
-            margin: 0 0 0.2rem 0;
-            font-weight: bold;
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            opacity: 0.95;
+            pointer-events: none;
         }
 
-        p {
-            font-size: 1.1em;
-            margin: 0;
-            text-align: center;
+        &-text {
+            padding: 0.5rem 0.5rem 0.5rem 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            max-width: 100%;
+
+            p {
+                opacity: 0;
+                transform: translateY(-10px);
+                transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+                width: 30rem;
+                pointer-events: none; // Prevents interaction when invisible
+            }
+
+            &:hover {
+                p {
+                    opacity: 1;
+                    transform: translateY(0);
+                    pointer-events: auto;
+                }
+            }
+
+            h2 {
+                font-size: 1.5rem;
+                margin: 0 0 0.2rem 0;
+                font-weight: bold;
+            }
+        }
+
+        // this shit makes the item go 100% 
+        &.expanded {
+            width: 100% !important;
+            height: 100% !important;
+            z-index: 10;
+            opacity: 1;
+            transform: scale(1.04);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+            background: #181818;
+            position: relative;
+        }
+
+        &.faded {
+            width: 0%;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.95);
+        }
+
+
+
+        .close-btn {
+            position: absolute;
+            top: 0rem;
+            right: 2rem;
+            font-size: 3rem;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            z-index: 20;
         }
     }
+
+
 }
+
+.expanded-content {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    color: #fff;
+    animation: fadeIn 0.4s;
+}
+
 
 .quick-links-section {
     display: flex;
@@ -230,80 +277,9 @@
     margin: 2.5rem 0;
 }
 
-.quick-link {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    height: 30vh;
-    width: 20vw;
-    background: #fff;
-    color: #223;
-    border: 2px solid white;
-    border-radius: 18px;
-    box-shadow: 0 4px 24px rgba(30, 41, 59, 0.18);
-    overflow: hidden;
-    text-decoration: none;
-    transition: color 0.2s, border-color 0.2s, background 0.2s, height 0.2s, width 0.2s, box-shadow 0.2s;
 
-    &:hover {
-        height: 35vh;
-        width: 25vw;
-        background: #fff;
-        color: #223;
-        border-radius: 18px;
-        box-shadow: 0 4px 24px rgb(30, 41, 59);
-        border: 3px solid $secondary-color;
-        border-radius: 25px;
 
-        * {
-            background-color: $secondary-color;
-            color: white;
-        }
-    }
 
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        background: #eee;
-        border-radius: 18px 18px 0 0;
-        display: block;
-    }
-
-    &-text {
-        width: 100%;
-        padding: 1.2rem 0.5rem;
-        text-align: center;
-        font-size: 1.25rem;
-        font-weight: 600;
-        background: #fff;
-        color: #222;
-        border-radius: 0 0 18px 18px;
-        flex: 1 1 auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-}
-
-.about-section {
-    background: linear-gradient(rgba(255, 167, 0, 0.25), rgb(46, 35, 35));
-    background-size: cover;
-    background-position: center;
-    color: $text-color;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 20vh;
-    margin: 0;
-}
-
-.about {
-    width: 60%;
-}
 
 @media (max-width: $tablet-viewport) {
     .hero {
@@ -315,10 +291,9 @@
     }
 
     .routine-info-section {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-        height: 75vh;
-        width: 92vw;
+        display: flex;
+        flex-direction: column;
+
         padding: 0.5em 0 0.5rem 0;
         overflow: hidden;
 
@@ -330,31 +305,43 @@
 
         // Mobile version: when any item is hovered, shrink others to 80%
         &:has(.routine-info-item:hover) .routine-info-item:not(:hover) {
-            transform: scale(0.8);
-            opacity: 0.7;
+            width: 100%;
+            height: 80%;
         }
     }
 
     .routine-info-item {
         width: 95%;
         height: 95%;
-        transition: transform 0.3s ease, opacity 0.3s ease;
+        transition: width 0.3s ease, opacity 0.3s ease;
 
         &:hover {
-            transform: scale(1.1);
+            width: 100%;
+            height: 80%;
         }
 
         &-text {
             h2 {
                 font-size: 1.3rem;
-                margin: 0 0 0.2rem 0;
+                margin: 2rem 0 0.2rem 0;
                 font-weight: bold;
             }
 
             p {
-                font-size: 0.9em;
-                margin: 0;
-                text-align: center;
+                opacity: 0;
+                transform: translateY(-10px);
+                transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+                width: 80%;
+                height: auto;
+                pointer-events: none; // Prevents interaction when invisible
+            }
+
+            &:hover {
+                p {
+                    opacity: 1;
+                    transform: translateY(0);
+                    pointer-events: auto;
+                }
             }
         }
     }
@@ -376,9 +363,7 @@
         }
     }
 
-    .about {
-        width: 90%;
-    }
+
 }
 
 @media (max-width: $phone-viewport) {
@@ -392,12 +377,5 @@
         }
     }
 
-    .about-section {
-        height: 35vh;
-    }
 
-    .about {
-        height: auto;
-        width: 95%;
-    }
 }
