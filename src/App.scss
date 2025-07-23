@@ -129,7 +129,6 @@
         width: 140%;
         z-index: 10;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-        border: 4px solid $secondary-color;
     }
 
     .routine-info-item.before-expand:not(:hover) {
@@ -159,10 +158,10 @@
         inset: 0;
 
         &:hover {
+            height: 100%;
             width: 120%;
             z-index: 10;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            border: 4px solid $secondary-color;
         }
 
 
@@ -232,6 +231,7 @@
         }
 
         &.faded {
+            height: 0%;
             width: 0%;
             opacity: 0;
             pointer-events: none;
@@ -282,6 +282,20 @@
 
 
 @media (max-width: $tablet-viewport) {
+    .routine-info-item.expand:hover {
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        border: 4px solid $secondary-color;
+    }
+
+    .routine-info-item.before-expand:hover {
+        height: 100%;
+        width: 100%;
+    }
+
+
     .hero {
         height: $hero-height-tablet;
     }
