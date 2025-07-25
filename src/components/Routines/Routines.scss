@@ -1,0 +1,273 @@
+@use "/src/styles/base/" as *;
+
+.routine-info-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80vw;
+    margin: 2rem auto;
+    height: 70vh;
+    background-image: url('../img/logos/maxgrind-bglogo.png');
+    background-color: $primary-color;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 30%;
+    border-radius: 4px;
+    gap: 0;
+    transition: height 0.5s ease, width 0.5s ease, margin 0.5s ease;
+    overflow: hidden; // Prevent expanded items from breaking container
+
+    &.routine-info-section-enlarged {
+        height: 85vh;
+        width: 90vw;
+        margin: 3rem auto;
+    }
+
+    // When any item is hovered, shrink others to 80%
+    // and apply a fade effect
+    // This uses the :has() pseudo-class, which is not widely supported yet
+    // :not(:hover) is used to target items that are not being hovered
+    .routine-info-item.before-expand:hover {
+        width: 140%;
+        z-index: 10;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    .routine-info-item.before-expand:not(:hover) {
+        width: 60%;
+        opacity: 0.3;
+        transition:
+            opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+            transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+            width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+            height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .routine-info-item {
+        position: relative; // necesario para posicionar el overlay
+        justify-content: center;
+        align-items: center;
+        width: 25%;
+        height: 100%;
+        margin: auto;
+        transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease, width 0.3s ease-in-out, box-shadow 0.3s ease, opacity 0.3s ease-in-out;
+        overflow: hidden;
+        border: 2px solid transparent;
+        text-decoration: none;
+        z-index: 0;
+        background-position: center;
+        background-size: cover;
+        inset: 0;
+
+        &:hover {
+            height: 100%;
+            width: 120%;
+            z-index: 10;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+
+
+        // Si tenés texto o contenido adentro, asegurate que esté encima
+        >* {
+            position: relative;
+            z-index: 2;
+        }
+
+
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            opacity: 0.95;
+            pointer-events: none;
+        }
+
+        &-text {
+            padding: 0.5rem 0.5rem 0.5rem 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            max-width: 100%;
+
+            p {
+                opacity: 0;
+                transform: translateY(-10px);
+                transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+                width: 30rem;
+                pointer-events: none; // Prevents interaction when invisible
+            }
+
+            &:hover {
+                p {
+                    opacity: 1;
+                    transform: translateY(0);
+                    pointer-events: auto;
+                }
+            }
+
+            h2 {
+                font-size: 1.5rem;
+                margin: 0 0 0.2rem 0;
+                font-weight: bold;
+            }
+        }
+
+        // this shit makes the item go 100% 
+        &.expanded {
+            width: 100% !important;
+            height: 100% !important;
+            z-index: 10;
+            opacity: 1;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+            background: #181818;
+            position: relative;
+        }
+
+        &.faded {
+            height: 0%;
+            width: 0%;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.95);
+            border: 0;
+        }
+
+
+
+        .close-btn {
+            position: absolute;
+            top: 0rem;
+            right: 2rem;
+            font-size: 3rem;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            z-index: 20;
+        }
+    }
+}
+
+.expanded-content {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    color: #fff;
+    animation: fadeIn 0.4s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: $tablet-viewport) {
+    .routine-info-section .routine-info-item.before-expand:not(:hover) {
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        opacity: 1;
+        transition: height 0.3s ease, width 0.3s ease, opacity 0.3s ease;
+    }
+
+    .routine-info-section .routine-info-item.before-expand:hover {
+        height: 100%;
+        width: 100%;
+        transition: height 0.3s ease, width 0.3s ease, opacity 0.3s ease;
+    }
+
+    .routine-info-section .routine-info-item.faded {
+        transition: height 0.3s ease, width 0.3s ease, opacity 0.3s ease;
+    }
+
+    .routine-info-section.routine-info-section-enlarged {
+        padding: 0;
+    }
+
+    .routine-info-section {
+        display: flex;
+        flex-direction: column;
+
+        padding: 0.5em 0 0.5rem 0;
+        overflow: hidden;
+
+        &.routine-info-section-enlarged {
+            height: 80vh;
+            width: 95vw;
+            margin: 2rem auto;
+            transition: height 0.3s ease, width 0.3s ease, opacity 0.3s ease;
+        }
+
+    }
+
+    .routine-info-item {
+        width: 95%;
+        height: 95%;
+        transition: width 0.3s ease, opacity 0.3s ease;
+
+        &:hover {
+            width: 100%;
+            height: 80%;
+        }
+
+        &-text {
+            h2 {
+                font-size: 1.3rem;
+                margin: 2rem 0 0.2rem 0;
+                font-weight: bold;
+            }
+
+            p {
+                opacity: 0;
+                transform: translateY(-10px);
+                transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+                width: 80%;
+                height: auto;
+                pointer-events: none; // Prevents interaction when invisible
+            }
+
+            &:hover {
+                p {
+                    opacity: 1;
+                    transform: translateY(0);
+                    pointer-events: auto;
+                }
+            }
+        }
+    }
+
+
+
+
+}
+
+@media (max-width: $phone-viewport) {
+    .routine-info-item-text {
+        h2 {
+            font-size: 0.9rem;
+        }
+
+        p {
+            font-size: 0.7rem;
+        }
+    }
+
+
+}
