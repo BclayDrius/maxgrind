@@ -1,13 +1,20 @@
 import "./Routines.scss";
 import { useRef, useState, useEffect } from "react";
 
-function Routines() {
+function Routines({ isRoutineSectionEnlarged }) {
   // this three lines are for the expansion of the routine info item when clicked
   const [expandedRoutineIndex, setExpandedRoutineIndex] = useState(null);
   const handleExpand = (index) => setExpandedRoutineIndex(index);
-  const handleCollapse = () => setExpandedRoutineIndex(null);
-  const [isRoutineSectionEnlarged, setIsRoutineSectionEnlarged] =
-    useState(false);
+
+  const videoRefs = useRef([]);
+  const handleCollapse = () => {
+    if (videoRefs.current[expandedRoutineIndex]) {
+      videoRefs.current[expandedRoutineIndex].pause();
+      videoRefs.current[expandedRoutineIndex].currentTime = 0;
+    }
+    setExpandedRoutineIndex(null);
+  };
+
   // array of routine info items
   const routineData = [
     {
@@ -39,26 +46,6 @@ function Routines() {
         "Combine strength, technique, and endurance. Be complete like the professionals who master multiple disciplines to excel to the maximum.",
     },
   ];
-  document.querySelectorAll(".routine-info-item").forEach((item) => {
-    const video = item.querySelector("video");
-    const videoSrc = video.dataset.src; // or direct src attribute
-
-    // Set video source and preload
-    if (videoSrc && !video.src) {
-      video.src = videoSrc;
-      video.load();
-    }
-
-    item.addEventListener("mouseenter", () => {
-      video.currentTime = 0; // Start from beginning
-      video.play().catch((e) => console.log("Video play failed"));
-    });
-
-    item.addEventListener("mouseleave", () => {
-      video.pause();
-      video.currentTime = 0; // Reset to first frame
-    });
-  });
 
   return (
     <section
@@ -82,6 +69,18 @@ function Routines() {
                 handleExpand(idx);
               }
             }}
+            onMouseEnter={(e) => {
+              if (!isExpanded && videoRefs.current[idx]) {
+                videoRefs.current[idx].currentTime = 0;
+                videoRefs.current[idx].play().catch(() => {});
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (!isExpanded && videoRefs.current[idx]) {
+                videoRefs.current[idx].pause();
+                videoRefs.current[idx].currentTime = 0;
+              }
+            }}
           >
             {isExpanded && (
               <button
@@ -95,27 +94,60 @@ function Routines() {
               </button>
             )}
             <video
+              ref={(el) => (videoRefs.current[idx] = el)}
               muted
               playsInline
-              preload="metadata"
+              preload={isExpanded ? "metadata" : "auto"}
               src={routine.video}
-              autoPlay={isExpanded}
-              loop={isExpanded}
+              autoPlay={isExpanded ? true : undefined}
+              loop={isExpanded ? true : undefined}
+              onMouseEnter={(e) => {
+                if (!isExpanded) {
+                  console.log("Hover play", idx);
+                  e.currentTarget.load();
+                  e.currentTarget.currentTime = 0;
+                  e.currentTarget.play().catch(() => {});
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isExpanded) {
+                  e.currentTarget.pause();
+                  e.currentTarget.currentTime = 0;
+                }
+              }}
             />
             <div className="routine-info-item-text">
               <h2>{routine.title}</h2>
               <p>{routine.description}</p>
               {isExpanded && (
                 <div className="expanded-content">
-                  {/* Put any extra info, images, links, etc. here */}
-                  <p>More details about {routine.title}!</p>
-                  {/* Example: */}
-                  {
-                    <ul>
-                      <li>Benefit 1</li>
-                      <li>Benefit 2</li>
-                    </ul>
-                  }
+                  <div className="routine-cards">
+                    <p>More details about {routine.title}!</p>
+                    {
+                      <ul>
+                        <li>{routine.item1}</li>
+                        <li>{routine.item2}</li>
+                      </ul>
+                    }
+                  </div>
+                  <div className="routine-cards">
+                    <p>More details about {routine.title}!</p>
+                    {
+                      <ul>
+                        <li>{routine.item1}</li>
+                        <li>{routine.item2}</li>
+                      </ul>
+                    }
+                  </div>
+                  <div className="routine-cards">
+                    <p>More details about {routine.title}!</p>
+                    {
+                      <ul>
+                        <li>{routine.item1}</li>
+                        <li>{routine.item2}</li>
+                      </ul>
+                    }
+                  </div>
                 </div>
               )}
             </div>

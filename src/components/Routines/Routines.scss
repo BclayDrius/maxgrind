@@ -96,12 +96,17 @@
             height: 100%;
             width: 100%;
             max-width: 100%;
+            text-shadow: black 0px 0px 15px;
+
+            * {
+                pointer-events: auto; // allow buttons/links inside to be clickable
+            }
 
             p {
                 opacity: 0;
                 transform: translateY(-10px);
                 transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-                width: 30rem;
+                width: 80%;
                 pointer-events: none; // Prevents interaction when invisible
             }
 
@@ -118,6 +123,7 @@
                 margin: 0 0 0.2rem 0;
                 font-weight: bold;
             }
+
         }
 
         // this shit makes the item go 100% 
@@ -126,7 +132,7 @@
             height: 100% !important;
             z-index: 10;
             opacity: 1;
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 1);
             background: #181818;
             position: relative;
         }
@@ -156,6 +162,14 @@
     }
 }
 
+// THIS IS TO MAINTAIN THE FREAKING TEXT WHEN EXPANDED CUZ TEH HOVER FUCKS IT XDDDDDD
+.routine-info-item.expanded .routine-info-item-text p,
+.routine-info-item.expanded .routine-info-item-text * {
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+}
+
 .expanded-content {
     margin-top: 1.5rem;
     padding: 1rem;
@@ -163,6 +177,10 @@
     border-radius: 8px;
     color: #fff;
     animation: fadeIn 0.4s;
+
+    .routine-cards {
+        background-color: wheat;
+    }
 }
 
 @keyframes fadeIn {

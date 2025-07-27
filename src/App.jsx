@@ -11,7 +11,7 @@ function App() {
   const [isRoutineSectionEnlarged, setIsRoutineSectionEnlarged] =
     useState(false);
   const heroRef = useRef(null);
-  // Escucha scroll y muestra/oculta el hero según la posición
+  // expands the routine section when the user scrolls down
   useEffect(() => {
     const onScroll = () => {
       const scrollPosition = window.scrollY;
@@ -86,7 +86,7 @@ function App() {
           </div>
         </section>
 
-        <Routines />
+        <Routines isRoutineSectionEnlarged={isRoutineSectionEnlarged} />
 
         {/* Links informativos */}
         <section className="quick-links-section">

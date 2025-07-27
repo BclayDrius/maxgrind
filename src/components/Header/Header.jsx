@@ -22,10 +22,10 @@ function Header() {
             <span />
           </button>
           <div className={`navbar-menu${menuOpen ? " open" : ""}`}>
-            <Link to="/login" onClick={() => setMenuOpen(false)}>
+            <Link to="/login-register" onClick={() => setMenuOpen(false)}>
               Login
             </Link>
-            <Link to="/register" onClick={() => setMenuOpen(false)}>
+            <Link to="/login-register" onClick={() => setMenuOpen(false)}>
               Register
             </Link>
             <Link to="/" onClick={() => setMenuOpen(false)}>
