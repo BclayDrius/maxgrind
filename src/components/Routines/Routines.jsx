@@ -1,6 +1,10 @@
 import "./Routines.scss";
 import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import arnoldVideo from "../../assets/video/anrold.mp4";
+import calisthenicsVideo from "../../assets/video/calisthenics.webm";
+import mmaVideo from "../../assets/video/mma.webm";
+import heroVideo from "../../assets/video/maxgrind-hero-720.mp4";
 
 function Routines({ isRoutineSectionEnlarged }) {
   // this three lines are for the expansion of the routine info item when clicked
@@ -20,7 +24,7 @@ function Routines({ isRoutineSectionEnlarged }) {
   const routineData = [
     {
       link: "pages/hypertrophy-powerlifting.html",
-      video: "/src/assets/video/anrold.mp4",
+      video: arnoldVideo,
       title: "Hypertrophy / Powerlifting",
       description:
         "Gain strength and muscle mass with a clear focus. Choose your path and take it to the maximum physical level.",
@@ -36,7 +40,7 @@ function Routines({ isRoutineSectionEnlarged }) {
     },
     {
       link: "pages/calisthenics-streetlifting.html",
-      video: "/src/assets/video/calisthenics.webm",
+      video: calisthenicsVideo,
       title: "Calisthenics / Streetlifting",
       description:
         "Master your body weight and add brutal strength. Challenge gravity with control, skill, and additional load.",
@@ -52,7 +56,7 @@ function Routines({ isRoutineSectionEnlarged }) {
     },
     {
       link: "pages/martial-arts.html",
-      video: "/src/assets/video/mma.webm",
+      video: mmaVideo,
       title: "Combat Sports",
       description:
         "Train like your ring idols. Forge body and mind to become a true modern warrior.",
@@ -68,7 +72,7 @@ function Routines({ isRoutineSectionEnlarged }) {
     },
     {
       link: "#",
-      video: "/src/assets/video/maxgrind-hero-720.mp4",
+      video: heroVideo,
       title: "Shall we combine?",
       description:
         "Combine strength, technique, and endurance. Be complete like the professionals who master multiple disciplines to excel to the maximum.",

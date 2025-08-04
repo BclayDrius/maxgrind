@@ -5,6 +5,8 @@ import Routines from "./components/Routines/Routines";
 import "./App.scss";
 import { useRef, useState, useEffect } from "react";
 import boxingImg from "./assets/img/boxing.jpg";
+import heroVideo from "./assets/video/maxgrind-hero-720.mp4";
+import logoIcon from "./assets/img/logos/500x500-maxgrind-bg-logo.png";
 
 function App() {
   const [showContent, setShowContent] = useState(false);
@@ -52,11 +54,7 @@ function App() {
 
   return (
     <>
-      <link
-        rel="icon"
-        href="/src/assets/img/logos/500x500-maxgrind-bg-logo.png"
-        type="image/png"
-      />
+      <link rel="icon" href={logoIcon} type="image/png" />
       <title>MaXGrind</title>
       <div className="overlay" />
       <Header />
@@ -65,13 +63,7 @@ function App() {
           className={`hero${showContent ? " hero-hide" : ""}`}
           ref={heroRef}
         >
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            src="/src/assets/video/maxgrind-hero-720.mp4"
-          />
+          <video autoPlay loop muted playsInline src={heroVideo} />
           <div className="hero-text">
             <h1>
               <span>MaXGrind:</span> The grind is eternal
