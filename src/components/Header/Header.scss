@@ -74,9 +74,43 @@
             text-decoration: none;
             font-weight: 500;
             transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
             &:hover {
                 color: #f39c12;
+            }
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+
+            .username {
+                color: #f39c12;
+                font-weight: 600;
+                font-size: 0.9rem;
+            }
+
+
+        }
+
+        .logout-btn {
+            background: none;
+            border: 1px solid #f39c12;
+            color: #f39c12;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background: #f39c12;
+                color: #222;
             }
         }
     }

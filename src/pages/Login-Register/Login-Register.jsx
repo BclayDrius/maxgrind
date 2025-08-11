@@ -1,9 +1,13 @@
 import { useState } from "react";
 import "./Login-Register.scss";
 import Header from "../../components/Header/Header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useUser } from "../../context/UserContext";
 
 function LoginRegister() {
+  const [showVerification, setShowVerification] = useState(false);
+  const [verificationCode, setVerificationCode] = useState("");
+  const [verificationError, setVerificationError] = useState("");
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     username: "",
@@ -13,6 +17,8 @@ function LoginRegister() {
   });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { login, register } = useUser();
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -68,6 +74,19 @@ function LoginRegister() {
     return Object.keys(newErrors).length === 0;
   };
 
+  // Simulación de verificación de código (reemplaza por tu API real)
+  const fakeVerifyCode = async (code) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        if (code === "123456") {
+          resolve({ success: true });
+        } else {
+          resolve({ success: false });
+        }
+      }, 1000);
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -77,32 +96,53 @@ function LoginRegister() {
 
     setIsSubmitting(true);
 
-    // Simulate API call
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      let result;
 
       if (isLogin) {
-        console.log("Login attempt:", {
+        result = await login({
           username: formData.username,
           password: formData.password,
         });
-        // Add your login logic here
       } else {
-        console.log("Register attempt:", formData);
-        // Add your register logic here
+        result = await register(formData);
       }
 
-      // Reset form on success
-      setFormData({
-        username: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      });
+      if (result.success) {
+        setFormData({
+          username: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        });
+
+        if (!isLogin) {
+          setShowVerification(true);
+          setIsSubmitting(false);
+          return;
+        }
+
+        navigate("/dashboard");
+      } else {
+        setErrors({ general: result.error });
+      }
     } catch (error) {
       console.error("Form submission error:", error);
+      setErrors({ general: "An unexpected error occurred" });
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handleVerification = async () => {
+    setVerificationError("");
+    // Aquí deberías llamar a tu API real
+    const res = await fakeVerifyCode(verificationCode);
+    if (res.success) {
+      setShowVerification(false);
+      navigate("/dashboard");
+    } else {
+      setVerificationError("Código incorrecto. Intenta de nuevo.");
     }
   };
 
@@ -220,6 +260,11 @@ function LoginRegister() {
                 )}
               </div>
 
+              {errors.general && (
+                <div className="error-message general-error">
+                  {errors.general}
+                </div>
+              )}
               <button
                 type="submit"
                 className="submit-btn"
@@ -239,6 +284,32 @@ function LoginRegister() {
             </form>
           </div>
         </section>
+        {showVerification && (
+          <div className="verification-modal">
+            <h2>Verifica tu correo</h2>
+            <p>Ingresa el código de 6 dígitos que enviamos a tu correo.</p>
+            <input
+              type="text"
+              maxLength={6}
+              value={verificationCode}
+              onChange={(e) =>
+                setVerificationCode(e.target.value.replace(/\D/g, ""))
+              }
+              className={verificationError ? "error" : ""}
+              autoFocus
+            />
+            {verificationError && (
+              <span className="error-message">{verificationError}</span>
+            )}
+            <button
+              onClick={handleVerification}
+              disabled={verificationCode.length !== 6}
+              className="submit-btn"
+            >
+              Verificar
+            </button>
+          </div>
+        )}
       </main>
     </>
   );
