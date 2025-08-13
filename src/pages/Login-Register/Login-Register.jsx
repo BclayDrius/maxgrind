@@ -83,7 +83,7 @@ function LoginRegister() {
         } else {
           resolve({ success: false });
         }
-      }, 1500);
+      }, 1000);
     });
   };
 
