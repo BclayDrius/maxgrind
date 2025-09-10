@@ -8,6 +8,7 @@ function LoginRegister() {
   const [showVerification, setShowVerification] = useState(false);
   const [verificationCode, setVerificationCode] = useState("");
   const [verificationError, setVerificationError] = useState("");
+  const [isResending, setIsResending] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     username: "",
@@ -17,7 +18,8 @@ function LoginRegister() {
   });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { login, register } = useUser();
+  const { login, register, verifyCode, resendVerificationCode, pendingUser } =
+    useUser();
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -74,19 +76,6 @@ function LoginRegister() {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Simulación de verificación de código (reemplaza por tu API real)
-  const fakeVerifyCode = async (code) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        if (code === "123456") {
-          resolve({ success: true });
-        } else {
-          resolve({ success: false });
-        }
-      }, 1000);
-    });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -136,13 +125,47 @@ function LoginRegister() {
 
   const handleVerification = async () => {
     setVerificationError("");
-    // Aquí deberías llamar a tu API real
-    const res = await fakeVerifyCode(verificationCode);
-    if (res.success) {
-      setShowVerification(false);
-      navigate("/dashboard");
-    } else {
-      setVerificationError("Código incorrecto. Intenta de nuevo.");
+    setIsSubmitting(true);
+
+    try {
+      const result = await verifyCode(verificationCode);
+      if (result.success) {
+        setShowVerification(false);
+        setVerificationCode("");
+        navigate("/dashboard");
+      } else {
+        setVerificationError(
+          result.error || "Invalid verification code. Please try again."
+        );
+      }
+    } catch (error) {
+      console.error("Verification error:", error);
+      setVerificationError("An unexpected error occurred. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleResendCode = async () => {
+    setIsResending(true);
+    setVerificationError("");
+
+    try {
+      const result = await resendVerificationCode();
+      if (result.success) {
+        // Show success message briefly
+        setVerificationError("New verification code sent!");
+        setTimeout(() => setVerificationError(""), 3000);
+      } else {
+        setVerificationError(
+          result.error || "Failed to resend code. Please try again."
+        );
+      }
+    } catch (error) {
+      console.error("Resend error:", error);
+      setVerificationError("An unexpected error occurred. Please try again.");
+    } finally {
+      setIsResending(false);
     }
   };
 
@@ -286,28 +309,60 @@ function LoginRegister() {
         </section>
         {showVerification && (
           <div className="verification-modal">
-            <h2>Verifica tu correo</h2>
-            <p>Ingresa el código de 6 dígitos que enviamos a tu correo.</p>
-            <input
-              type="text"
-              maxLength={6}
-              value={verificationCode}
-              onChange={(e) =>
-                setVerificationCode(e.target.value.replace(/\D/g, ""))
-              }
-              className={verificationError ? "error" : ""}
-              autoFocus
-            />
-            {verificationError && (
-              <span className="error-message">{verificationError}</span>
-            )}
-            <button
-              onClick={handleVerification}
-              disabled={verificationCode.length !== 6}
-              className="submit-btn"
-            >
-              Verificar
-            </button>
+            <div className="verification-content">
+              <h2>Verify Your Email</h2>
+              <p>
+                We've sent a 6-digit verification code to{" "}
+                <strong>{pendingUser?.email}</strong>
+              </p>
+              <div className="verification-input-group">
+                <input
+                  type="text"
+                  maxLength={6}
+                  value={verificationCode}
+                  onChange={(e) =>
+                    setVerificationCode(e.target.value.replace(/\D/g, ""))
+                  }
+                  className={`verification-input ${
+                    verificationError ? "error" : ""
+                  }`}
+                  placeholder="000000"
+                  autoFocus
+                />
+                {verificationError && (
+                  <span
+                    className={`error-message ${
+                      verificationError.includes("sent") ? "success" : ""
+                    }`}
+                  >
+                    {verificationError}
+                  </span>
+                )}
+              </div>
+              <div className="verification-actions">
+                <button
+                  onClick={handleVerification}
+                  disabled={verificationCode.length !== 6 || isSubmitting}
+                  className="submit-btn"
+                >
+                  {isSubmitting ? (
+                    <span className="loading">
+                      <span className="spinner"></span>
+                      Verifying...
+                    </span>
+                  ) : (
+                    "Verify Code"
+                  )}
+                </button>
+                <button
+                  onClick={handleResendCode}
+                  disabled={isResending}
+                  className="resend-btn"
+                >
+                  {isResending ? "Sending..." : "Resend Code"}
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </main>
